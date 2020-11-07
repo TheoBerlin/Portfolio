@@ -7,7 +7,7 @@ I've many times thought volumetric lighting in games have a 'wow effect'. So I i
 
 ![Volumetric Lighting](https://i.gyazo.com/30c8c096f3c22aae8b8a1eb4f9232308.jpg)
 
-The core of the algorithm is surprisingly simple. It's raymarching through each pixel in a fragment shader. In each step of the raymarch, lighting calculations are performed using per-light parameters such as 'G-blabla' and 'light scattering'. The shadow map of the volumetric light is also sampled in each step.
+The core of the algorithm is surprisingly simple. It's raymarching through each pixel in a fragment shader. In each step of the raymarch, lighting calculations are performed using per-light parameters, and the shadow map of the volumetric light is sampled.
 
 I also implemented a shader that could generate volumetric light for point lights, but due to time restrictions I never got around to implementing the CPU-side code to handle it.
 
