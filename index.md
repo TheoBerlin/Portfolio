@@ -1,37 +1,43 @@
-## Welcome to GitHub Pages
+## Graphics Portfolio
 
-You can use the [editor on GitHub](https://github.com/TheoBerlin/Portfolio/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Hello, this is the portfolio of a Swedish MSc student. I study a course called 'Master of Science in Game and Software Development'. Below are rendering techniques and other graphics-programming related implementations.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Volumetric Lighting
+I've many times thought volumetric lighting in games have a 'wow effect'. So I implemented it myself whilst learning Vulkan. In the screenshot below, a directional light in the sky is emitting volumetric light.
 
-### Markdown
+![Volumetric Lighting](https://i.gyazo.com/30c8c096f3c22aae8b8a1eb4f9232308.jpg)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+The core of the algorithm is surprisingly simple. It's raymarching through each pixel in a fragment shader. In each step of the raymarch, lighting calculations are performed using per-light parameters such as 'G-blabla' and 'light scattering'. The shadow map of the volumetric light is also sampled in each step.
 
-```markdown
-Syntax highlighted code block
+I also implemented a shader that could generate volumetric light for point lights, but due to time restrictions I never got around to implementing the CPU-side code to handle it.
 
-# Header 1
-## Header 2
-### Header 3
+This implementation of volumetric lighting is of course very unoptimized. One possible method of optimizing it, as mentioned [in this slideshow](https://fr.slideshare.net/BenjaminGlatzel/volumetric-lighting-for-many-lights-in-lords-of-the-fallen), is to perform raymarching at a lower resolution, and then upscaling the results.
 
-- Bulleted
-- List
+### Particles with Screen-Space Collisions
+When I first checked out Star Citizen's Area 18, I saw an in-game holographic soda commercial emitting particles that could collide with geometry. They stood out to me, so in the same Vulkan application as above, I implemented particles with collisions.
 
-1. Numbered
-2. List
+![Projectiles](projectiles.gif)
 
-**Bold** and _Italic_ and `Code` text
+The particle computation can be swapped between the CPU and the GPU at any time during runtime. When computed on the GPU, screen-space collisions can be enabled. The collisions utilize the camera's depth buffer and G-buffers containing world positions and normals.
 
-[Link](url) and ![Image](src)
-```
+### Game Engine supporting DirectX 11 and Vulkan
+I have known DirectX 11 for some years. After recently learning Vulkan, I wanted to consolidate my knowledge of the API and see how it differs with DirectX 11. My idea of doing this was adding support for Vulkan to my game engine which previously only supported DirectX 11.
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+To support both rendering APIs, I made an API consisting of abstractions of core Vulkan objects such as Descriptor sets, pipelines, command lists etc. I made it this way to favor Vulkan, and to make the Vulkan implementation of the API simpler.
 
-### Jekyll Themes
+![API Files](https://i.gyazo.com/82545f2d0fdc9f5323ecae7d796b843b.png)
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/TheoBerlin/Portfolio/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+The DirectX 11 implementation of the API simulates said Vulkan objects. This was fun and insightful to do, as it highlighted some of the work that GPU drivers perform behind the curtains when running the higher level APIs of DirectX 11 and OpenGL. An obvious example of this would be the memory synchronizations that Vulkan has the application specify explicitly, whilst with DirectX 11, the driver figures out how and when to perform them.
 
-### Support or Contact
+### Metaballs
+Metaballs are masses that can merge together into a single body. These are implemented using raymarching. At each step of the raymarch, a density value is calculated using the distance to each metaball. If the density is high enough, the 3D point is inside or on the surface of a metaball.
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+This was done as part of a course on WebGL.
+
+(demo here)
+
+#### Honorable mentions
+These are very minor techniques I implemented the first time I ever learned graphics programming with DirectX 11. They aren't worth putting on a pedestal, but they do deserve a bulleted list.
+- FXAA
+- Normal mapping
+- Bump/Displacement mapping + Tessellation
