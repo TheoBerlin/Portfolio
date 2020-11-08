@@ -34,10 +34,10 @@ Metaballs are masses that can merge together into a single body. These are imple
 
 This was done as part of a course on WebGL.
 
-(demo here)
+![Metaballs](metaballs.gif)
 
 #### Honorable mentions
-These are very minor techniques I implemented the first time I ever learned graphics programming with DirectX 11. They aren't worth putting on a pedestal, but they do deserve a bulleted list.
+These are very minor techniques I implemented the first time I ever learned graphics programming with DirectX 11. They aren't worth putting on a pedestal, but they do deserve a bulleted list:
 - FXAA
 - Normal mapping
 - Bump/Displacement mapping + Tessellation
