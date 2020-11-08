@@ -41,7 +41,7 @@ This was done as part of a course on WebGL.
 
 ![Metaballs](metaballs.gif)
 
-#### Honorable Mentions
+### Honorable Mentions
 These are very minor techniques I implemented the first time I ever learned graphics programming with DirectX 11. They aren't worth putting on a pedestal, but they do deserve a bulleted list:
 - FXAA
 - Normal mapping
