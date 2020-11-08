@@ -16,7 +16,7 @@ This implementation of volumetric lighting is of course very unoptimized. One po
 ### Particles with Screen-Space Collisions
 When I first checked out Star Citizen's Area 18, I saw an in-game holographic soda commercial emitting particles that could collide with geometry. They stood out to me, so in the same Vulkan application as above, I implemented particles with collisions.
 
-![Projectiles](projectiles.gif)
+![Particles](particles.gif)
 
 The particle computation can be swapped between the CPU and the GPU at any time during runtime. When computed on the GPU, screen-space collisions can be enabled. The collisions utilize the camera's depth buffer and G-buffers containing world positions and normals.
 
