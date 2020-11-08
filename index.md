@@ -19,7 +19,7 @@ When I first checked out Star Citizen's Area 18, I saw an in-game holographic so
 
 ![Particles](particles.gif)
 
-The particle computation can be swapped between the CPU and the GPU at any time during runtime. When computed on the GPU, a compute shader is used and screen-space collisions can be enabled. The compute shader detects and resolves collisions by utilizing the camera's depth buffer and G-buffers containing world positions and normals.
+The particle computation can be swapped between the CPU and the GPU at any time during runtime. When computed on the GPU, a compute shader is used and screen-space collisions can be enabled. Collisions are detected and resolved by utilizing the camera's depth buffer and G-buffer containing normals.
 
 [Shader code](https://github.com/TheoBerlin/VulkanBoys/blob/master/Project/assets/shaders/particles/update_cs.glsl)
 
