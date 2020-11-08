@@ -17,7 +17,7 @@ When I first checked out Star Citizen's Area 18, I saw an in-game holographic so
 
 ![Particles](particles.gif)
 
-The particle computation can be swapped between the CPU and the GPU at any time during runtime. When computed on the GPU, screen-space collisions can be enabled. The collisions utilize the camera's depth buffer and G-buffers containing world positions and normals.
+The particle computation can be swapped between the CPU and the GPU at any time during runtime. When computed on the GPU, a compute shader is used and screen-space collisions can be enabled. The compute shader detects and resolves collisions by utilizing the camera's depth buffer and G-buffers containing world positions and normals.
 
 ### Game Engine Supporting DirectX 11 and Vulkan
 I have known DirectX 11 for some years. After recently learning Vulkan, I wanted to consolidate my knowledge of the API and see how it differs with DirectX 11. My idea of doing this was adding support for Vulkan to my game engine which previously only supported DirectX 11.
