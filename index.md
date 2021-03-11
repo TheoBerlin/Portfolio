@@ -35,9 +35,34 @@ The DirectX 11 implementation of the API simulates said Vulkan objects. This was
 [Folder shown above](https://github.com/TheoBerlin/SoloGame/tree/master/src/Engine/Rendering/APIAbstractions)
 
 ### Metaballs
-Metaballs are masses that can merge together into a single body. These are implemented using raymarching. At each step of the raymarch, a density value is calculated using the distance to each metaball. If the density is high enough, the 3D point is inside or on the surface of a metaball.
+Metaballs are masses that can merge together into a single body. I have implemented metaballs in different projects, using both marching cubes and raymarching.
 
-This was done as part of a course on WebGL.
+#### Marching Cubes Metaballs
+The metaballs seen below are implemented using marching cubes.
+
+![Marching Cubes Metaballs](marchingCubes.gif)
+
+This was done as part of a module called 'Large Game Project', in which me and nine other students together made a game from scratch. What you see above is a snippet of the project's trailer, available [here](https://www.youtube.com/watch?v=OKnG6HQkMr0).
+
+We wanted the players' fired projectiles to look like animated blobs of paint or water, which visually matches what one can achieve with metaballs.
+
+The algorithm of creating metaballs using marching cubes is properly explained by [Jamie Wong in his blog](http://jamie-wong.com/2014/08/19/metaballs-and-marching-squares/). Briefly summarized, the idea is to have a 3D grid, and generate density values (similar to a signed distance field) for each cell in the grid. Then, by looking at the density values of each corner of a cell, one can figure out if and how to generate triangles in a cell.
+
+The implementation spans three compute shaders, where the first two compute density values and gradients for each cell in the grid, and the third generates mesh.
+
+One of the challenges I faced when implementing marching cubes was that the amount of triangles needed to be consistent every frame. This was partly due to the project using raytracing and us wanting to avoid frequently updating Bottom Level Acceleration Structures (BLAS).
+
+My solution for this issue was to hide 'unused' triangles inside one of the metaballs. Doing so whilst avoiding branching and degenerate numbers (NaN and INF) was a fun challenge.
+
+The shader code:<br/>
+[Density](https://github.com/IbexOmega/CrazyCanvas/blob/master/Assets/Shaders/Projectiles/MarchingCubesDensity.comp)<br/>
+[Gradient](https://github.com/IbexOmega/CrazyCanvas/blob/master/Assets/Shaders/Projectiles/MarchingCubesGradient.comp)<br/>
+[Mesh Generation](https://github.com/IbexOmega/CrazyCanvas/blob/master/Assets/Shaders/Projectiles/MarchingCubesMeshGen.comp)
+
+#### Raymarched Metaballs
+The metaballs below are implemented using raymarching. At each step of the raymarch, a density value is calculated using the distance to each metaball. If the density is high enough, the 3D point is inside or on the surface of a metaball.
+
+This was done as part of a course on WebGL in early 2019.
 
 ![Metaballs](metaballs.gif)
 
