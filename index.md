@@ -46,13 +46,13 @@ This was done as part of a module called 'Large Game Project', in which me and n
 
 We wanted the players' fired projectiles to look like animated blobs of paint or water, which visually matches what one can achieve with metaballs.
 
-The algorithm of creating metaballs using marching cubes is properly explained by [Jamie Wong in his blog](http://jamie-wong.com/2014/08/19/metaballs-and-marching-squares/). Briefly summarized, the idea is to have a 3D grid, and generate density values (similar to a signed distance field) for each cell in the grid. Then, by looking at the density values of each corner of a cell, one can figure out if and how to generate triangles in a cell.
+The algorithm for creating metaballs using marching cubes is properly explained by [Jamie Wong in his blog](http://jamie-wong.com/2014/08/19/metaballs-and-marching-squares/). Briefly summarized, the idea is to have a 3D grid, and generate density values (similar to a signed distance field) for each cell in the grid. Then, by looking at the density values of each corner of a cell, one can figure out if and how to generate triangles in a cell.
 
-The implementation spans three compute shaders, where the first two compute density values and gradients for each cell in the grid, and the third generates mesh.
+The implementation spans three compute shaders, where the first two compute density values and gradients for each cell corner in the grid, and the third generates mesh.
 
 One of the challenges I faced when implementing marching cubes was that the amount of triangles needed to be consistent every frame. This was partly due to the project using raytracing and us wanting to avoid frequently updating Bottom Level Acceleration Structures (BLAS).
 
-My solution for this issue was to hide 'unused' triangles inside one of the metaballs. Doing so whilst avoiding branching and degenerate numbers (NaN and INF) was a fun challenge.
+My solution for this issue was to hide 'unused' triangles inside one of the metaballs. Doing so whilst avoiding branching and special numbers (NaN and INF) was a fun challenge.
 
 The shader code:<br/>
 [Density](https://github.com/IbexOmega/CrazyCanvas/blob/master/Assets/Shaders/Projectiles/MarchingCubesDensity.comp)<br/>
