@@ -1,5 +1,5 @@
-## Graphics Portfolio
-Hello, this is the portfolio of Theo Holmqvist Berlin, a Swedish MSc student. I study a course called 'Master of Science in Game and Software Development'. Below are rendering techniques and other graphics-programming related implementations I've made over the last couple of years.
+## Portfolio
+Hello, this is the portfolio of Theo Holmqvist Berlin, a Swedish MSc student. I study a course called 'Master of Science in Game and Software Development'. Below are rendering techniques and other game programming-related implementations I've made over the last couple of years.
 
 ### Volumetric Lighting
 I've many times thought volumetric lighting in games have a 'wow effect'. So I implemented it myself whilst learning Vulkan. In the screenshot below, a directional light in the sky is emitting volumetric light.
@@ -22,6 +22,17 @@ When I first checked out Star Citizen's Area 18, I saw an in-game holographic so
 The particle computation can be swapped between the CPU and the GPU at any time during runtime. When computed on the GPU, a compute shader is used and screen-space collisions can be enabled. Collisions are detected and resolved by utilizing the camera's depth buffer and G-buffer containing normals.
 
 [Shader code](https://github.com/TheoBerlin/VulkanBoys/blob/master/Project/assets/shaders/particles/update_cs.glsl)
+
+### Entity Component System
+Entity Component System (ECS) is an architecture for storing game object data and performing logic using said data. The header files for the ECS code reside [here](https://github.com/IbexOmega/CrazyCanvas/tree/master/LambdaEngine/Include/ECS) and the source files [here](https://github.com/IbexOmega/CrazyCanvas/tree/master/LambdaEngine/Source/ECS). I originally wrote the code for a hobby project, and then continued developing it in a recent group project. It's very much inspired by various discussions and videos, such as [this talk at GDC](https://www.youtube.com/watch?v=0_Byw9UMn9g).
+
+A short summary of some key parts of the implementation:
+- Entity: An ID represented by an unsigned integer. By creating components for an entity, various types of game objects can be created.
+- Component: A data structure, each instance of a component belongs to an Entity.
+- System: Subscribes to entities that have certain component types and performs logic in an update function. When systems subscribe to component types, they include information on whether they will only read the component data or if they will also write to them. This allows for an easy parallelization of system updates. All that has to be done to prevent data races is to only update systems that do not read or write to a component type - that is already being written to by another system.
+- ECS Core: A singleton class that acts as an API for most thinkable use cases, such as creating and deleting entities and component. The core also stores all components.
+
+The updating of systems is done in [JobScheduler.cpp](https://github.com/IbexOmega/CrazyCanvas/blob/master/LambdaEngine/Source/ECS/JobScheduler.cpp).
 
 ### Game Engine Supporting DirectX 11 and Vulkan
 I have known DirectX 11 for some years. After recently learning Vulkan, I wanted to consolidate my knowledge of the API and see how it differs with DirectX 11. My idea of doing this was adding support for Vulkan to my game engine which previously only supported DirectX 11.
@@ -67,7 +78,7 @@ This was done as part of a course on WebGL in early 2019.
 ![Metaballs](metaballs.gif)
 
 ### Honorable Mentions
-These are very minor techniques I implemented the first time I ever learned graphics programming with DirectX 11. They aren't worth putting on a pedestal, but they do deserve a bulleted list:
+These are very minor rendering techniques I implemented the first time I ever learned graphics programming with DirectX 11. They aren't worth putting on a pedestal, but they do deserve a bulleted list:
 - FXAA
 - Normal mapping
 - Bump/Displacement mapping + Tessellation
