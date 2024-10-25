@@ -1,5 +1,5 @@
 ## Portfolio
-Hello, this is the portfolio of Theo Holmqvist Berlin, a Swedish MSc student. I study a course called 'Master of Science in Game and Software Development'. Below are rendering techniques and other game programming-related implementations I've made over the last couple of years.
+Hello, this is the portfolio of Theo Holmqvist Berlin, a Swedish MSc graduate, and current render programmer at Massive Entertainment. This portfolio is outdated as it has not been updated since I graduated in 2021, and is not representative of my current level of competence. However, it offers a hint at my curiosity and versatility in the area of graphics and rendering.
 
 ### Volumetric Lighting
 I've many times thought volumetric lighting in games have a 'wow effect'. So I implemented it myself whilst learning Vulkan. In the screenshot below, a directional light in the sky is emitting volumetric light.
